@@ -1,0 +1,466 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>全国银行查询系统</title>
+    <script type="text/javascript" src="scripts/city.js"></script>
+    <script type="text/javascript" src="scripts/jquery.js"></script>
+    <style>
+        body {
+            font-family: "微软雅黑", "Microsoft Yahei"
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        td {
+            border: 1px solid #ececec;
+            font-size: 14px;
+            padding-left: 5px;
+            height: 25px;
+            line-height: 25px;
+        }
+
+        .page {
+            width: 800px;
+            font-size: 14px;
+            margin: 0 auto;
+            height: 30px;
+            line-height: 30px;
+        }
+
+        .gary td {
+            background: #999;
+            color: #fff;
+        }
+    </style>
+    <script charset="utf-8" src="chrome-extension://jgphnjokjhjlcnnajmfjlacjnjkhleah/js/btype.js"></script>
+    <style id="style-1-cropbar-clipper">/* Copyright 2014 Evernote Corporation. All rights reserved. */
+    .en-markup-crop-options {
+        top: 18px !important;
+        left: 50% !important;
+        margin-left: -100px !important;
+        width: 200px !important;
+        border: 2px rgba(255, 255, 255, .38) solid !important;
+        border-radius: 4px !important;
+    }
+
+    .en-markup-crop-options div div:first-of-type {
+        margin-left: 0px !important;
+    }
+    </style>
+</head>
+
+<body>
+
+<form method="get" action="?search=true">
+    <table width="1000" height="152" border="0" style="border:#ccc 1px dashed;" align="center" cellpadding="0"
+           cellspacing="0" bgcolor="#FFFFFF">
+        <!--<tr>
+              <td width="70" >*省份：</td>
+              <td width="110">
+              <select id="Province" name="Province" onchange="javascript:ChangeProvince2('City',this.options[this.selectedIndex].value)"></select>
+              </td>
+              <td  style="color:green" colspan="3" >第一步:选择省名</td>
+          </tr>
+          <tr>
+              <td >*城市：</td>
+              <td>
+              <select id="City" name="City" ></select>
+              <div style="display:none;">
+                  <select id="Xian" name="Xian"></select>
+              </div>
+              </td>
+              <td style="color:green" colspan="3" >第二步:选择地区城市名称</td>
+          </tr>-->
+        <tbody>
+        <tr>
+            <td>*银行：</td>
+            <td><select id="bankType" name="bankType">
+                <option value="">请选择银行</option>
+                <option value="102">中国工商银行</option>
+                <option value="103">中国农业银行</option>
+                <option value="104">中国银行</option>
+                <option value="105">中国建设银行</option>
+                <option value="201">国家开发银行</option>
+                <option value="202">中国进出口银行</option>
+                <option value="203">中国农业发展银行</option>
+                <option value="301">交通银行</option>
+                <option value="403">中国邮政储蓄银行</option>
+                <option value="302">中信银行</option>
+                <option value="303">中国光大银行</option>
+                <option value="304">华夏银行</option>
+                <option value="305">中国民生银行</option>
+                <option value="306">广东发展银行</option>
+                <option value="307">深圳发展银行</option>
+                <option value="308">招商银行</option>
+                <option value="309">兴业银行</option>
+                <option value="310">上海浦东发展银行</option>
+                <option value="313">城市商业银行</option>
+                <option value="314">农村商业银行</option>
+                <option value="315">恒丰银行</option>
+                <option value="317">农村合作银行</option>
+                <option value="318">渤海银行</option>
+                <option value="319">徽商银行</option>
+                <option value="401">城市信用社</option>
+                <option value="402">农村信用联社</option>
+                <option value="501">香港上海汇丰银行</option>
+                <option value="502">东亚银行</option>
+                <option value="503">南洋商业银行</option>
+                <option value="504">恒生银行</option>
+                <option value="505">中国银行（香港）</option>
+                <option value="989">(香港地区)银行</option>
+                <option value="506">集友银行</option>
+                <option value="509">星展银行（香港）</option>
+                <option value="510">永亨银行</option>
+                <option value="531">美国花旗银行</option>
+                <option value="532">美国银行</option>
+                <option value="533">美国摩根大通银行</option>
+                <option value="561">日本三菱东京日联银行</option>
+                <option value="562">日本日联银行</option>
+                <option value="563">日本三井住友银行</option>
+                <option value="564">日本瑞穗实业银行</option>
+                <option value="565">日本山口银行</option>
+                <option value="591">韩国外换银行</option>
+                <option value="592">韩国新韩银行</option>
+                <option value="593">韩国友利银行</option>
+                <option value="594">韩国产业银行</option>
+                <option value="596">韩国中小企业银行</option>
+                <option value="623">新加坡星展银行</option>
+                <option value="641">奥地利中央合作银行</option>
+                <option value="651">比利时联合银行</option>
+                <option value="661">荷兰银行</option>
+                <option value="662">荷兰商业银行</option>
+                <option value="671">渣打银行</option>
+                <option value="691">法国兴业银行</option>
+                <option value="692">法国巴黎银行</option>
+                <option value="694">法国东方汇理银行</option>
+                <option value="711">德国德累斯登银行</option>
+                <option value="712">德意志银行</option>
+                <option value="713">德国商业银行</option>
+                <option value="714">德国西德银行</option>
+                <option value="715">德国巴伐利亚州银行</option>
+                <option value="741">瑞士信贷银行</option>
+                <option value="752">加拿大蒙特利尔银行</option>
+                <option value="761">澳大利亚和新西兰银行集团</option>
+                <option value="775">德富泰银行</option>
+                <option value="781">厦门国际银行</option>
+                <option value="782">法国巴黎银行（中国）</option>
+                <option value="783">平安银行</option>
+                <option value="786">青岛国际银行</option>
+                <option value="787">华一银行</option>
+            </select></td>
+            <td style="color:green" colspan="3">选择银行种类</td>
+        </tr>
+
+        <tr>
+            <td>行名：</td>
+            <td><input type="text" name="cBankName" value="中国银行股份有限公司台北分行"></td>
+            <td style="color:green" colspan="3">选择输入行名关键字进行模糊查询</td>
+        </tr>
+        <tr>
+            <td>地址：</td>
+            <td>
+                <input type="text" name="cAddr" value="">
+            </td>
+            <td style="color:green" colspan="3">选择输入地址关键字进行模糊查询</td>
+        </tr>
+        <tr>
+            <td>行号：</td>
+            <td>
+                <input type="text" name="no" value="">
+                <input type="hidden" name="search" value="true">
+                <input type="submit" value="查询">
+            </td>
+            <td style="color:green" colspan="3">选择输入行号进行精确查询</td>
+        </tr>
+
+        <tr class="gary">
+            <td>序号</td>
+            <td>行号</td>
+            <td>网点名称</td>
+            <td>电话</td>
+            <td>地址</td>
+        </tr>
+
+        <tr>
+            <td>1</td>
+            <td>989584090000</td>
+            <td>（台湾地区）中国银行股份有限公司台北分行（香港参加行）</td>
+            <td>886-2-27585600-6622</td>
+            <td>台北市信义区松仁路105号1、2、4楼</td>
+        </tr>
+
+        </tbody>
+    </table>
+</form>
+<div class="page">
+
+    <a href="?Province=&amp;City=&amp;Xian=&amp;bankType=&amp;cBankName=中国银行股份有限公司台北分行&amp;cAddr=&amp;search=true&amp;page=1">首页</a>
+    | <a
+        href="?Province=&amp;City=&amp;Xian=&amp;bankType=&amp;cBankName=中国银行股份有限公司台北分行&amp;cAddr=&amp;search=true&amp;page=0">前一页</a>
+    | 下一页 | 末页
+    　　共<b>1</b>页,目前为第<b>1</b>页,共<b>1</b>条记录
+</div>
+<script language="javascript">
+    InitOption('Province', 'City', 'Xian');
+    var P = "";
+    var C = "";
+    var B = "";
+    $(function () {
+        if (P != "") {
+            $("#Province option[value='" + P + "']").attr("selected", "selected");
+            ChangeProvince2('City', P);
+        }
+        if (B != "") {
+            $("#bankType option[value='" + B + "']").attr("selected", "selected");
+        }
+        if (C != "") {
+            $("#City option[value='" + C + "']").attr("selected", "selected");
+        }
+    });
+</script>
+
+<center>请使用模糊搜索进行查殉!
+    <script language="javascript" type="text/javascript" src="http://js.users.51.la/19121486.js"></script>
+    <a href="http://www.51.la/?19121486" target="_blank" title="51.La 网站流量统计系统">网站统计</a>
+</center>
+<st-div id="__selection-translator__">
+    <st-div class="__st-box__"
+            style="display: none; position: fixed; z-index: 99999; left: 0px; top: 0px; transform: translateX(1164px) translateY(182px);">
+        <st-header>
+            <st-span class="st-icon-pin" title="固定"></st-span>
+            <st-span class="st-icon-down-open" title="展开"></st-span>
+            <st-span class="st-icon-cog" title="设置"></st-span>
+        </st-header>
+        <st-div class="__query-form__" style="display: none;">
+            <st-div><textarea placeholder="输入要翻译的句子或单词"></textarea></st-div>
+            <st-div><select>
+                <option value="">自动判断</option>
+                <option value="zh">中文</option>
+                <option value="zh-CN">中文(简体)</option>
+                <option value="zh-HK">中文(香港)</option>
+                <option value="zh-TW">中文(繁体)</option>
+                <option value="en">英语</option>
+                <option value="ja">日语</option>
+                <option value="ko">朝鲜语</option>
+                <option value="de">德语</option>
+                <option value="fr">法语</option>
+                <option value="ru">俄语</option>
+                <option value="th">泰语</option>
+                <option value="af">南非语</option>
+                <option value="ar">阿拉伯语</option>
+                <option value="az">阿塞拜疆语</option>
+                <option value="be">比利时语</option>
+                <option value="bg">保加利亚语</option>
+                <option value="ca">加泰隆语</option>
+                <option value="cs">捷克语</option>
+                <option value="cy">威尔士语</option>
+                <option value="da">丹麦语</option>
+                <option value="dv">第维埃语</option>
+                <option value="el">希腊语</option>
+                <option value="eo">世界语</option>
+                <option value="es">西班牙语</option>
+                <option value="et">爱沙尼亚语</option>
+                <option value="eu">巴士克语</option>
+                <option value="fa">法斯语</option>
+                <option value="fi">芬兰语</option>
+                <option value="fo">法罗语</option>
+                <option value="gl">加里西亚语</option>
+                <option value="gu">古吉拉特语</option>
+                <option value="he">希伯来语</option>
+                <option value="hi">印地语</option>
+                <option value="hr">克罗地亚语</option>
+                <option value="hu">匈牙利语</option>
+                <option value="hy">亚美尼亚语</option>
+                <option value="id">印度尼西亚语</option>
+                <option value="is">冰岛语</option>
+                <option value="it">意大利语</option>
+                <option value="ka">格鲁吉亚语</option>
+                <option value="kk">哈萨克语</option>
+                <option value="kn">卡纳拉语</option>
+                <option value="kok">孔卡尼语</option>
+                <option value="ky">吉尔吉斯语</option>
+                <option value="lt">立陶宛语</option>
+                <option value="lv">拉脱维亚语</option>
+                <option value="mi">毛利语</option>
+                <option value="mk">马其顿语</option>
+                <option value="mn">蒙古语</option>
+                <option value="mr">马拉地语</option>
+                <option value="ms">马来语</option>
+                <option value="mt">马耳他语</option>
+                <option value="nb">挪威语(伯克梅尔)</option>
+                <option value="nl">荷兰语</option>
+                <option value="ns">北梭托语</option>
+                <option value="pa">旁遮普语</option>
+                <option value="pl">波兰语</option>
+                <option value="pt">葡萄牙语</option>
+                <option value="qu">克丘亚语</option>
+                <option value="ro">罗马尼亚语</option>
+                <option value="sa">梵文</option>
+                <option value="se">北萨摩斯语</option>
+                <option value="sk">斯洛伐克语</option>
+                <option value="sl">斯洛文尼亚语</option>
+                <option value="sq">阿尔巴尼亚语</option>
+                <option value="sv">瑞典语</option>
+                <option value="sw">斯瓦希里语</option>
+                <option value="syr">叙利亚语</option>
+                <option value="ta">泰米尔语</option>
+                <option value="te">泰卢固语</option>
+                <option value="tl">塔加路语</option>
+                <option value="tn">茨瓦纳语</option>
+                <option value="tr">土耳其语</option>
+                <option value="ts">宗加语</option>
+                <option value="tt">鞑靼语</option>
+                <option value="uk">乌克兰语</option>
+                <option value="ur">乌都语</option>
+                <option value="uz">乌兹别克语</option>
+                <option value="vi">越南语</option>
+                <option value="xh">班图语</option>
+                <option value="zu">祖鲁语</option>
+            </select>
+                <st-div class="__exchange__">
+                    <st-span class="st-icon-exchange"></st-span>
+                </st-div>
+                <select>
+                    <option value="">自动选择</option>
+                    <option value="zh">中文</option>
+                    <option value="zh-CN">中文(简体)</option>
+                    <option value="zh-HK">中文(香港)</option>
+                    <option value="zh-TW">中文(繁体)</option>
+                    <option value="en">英语</option>
+                    <option value="ja">日语</option>
+                    <option value="ko">朝鲜语</option>
+                    <option value="de">德语</option>
+                    <option value="fr">法语</option>
+                    <option value="ru">俄语</option>
+                    <option value="th">泰语</option>
+                    <option value="af">南非语</option>
+                    <option value="ar">阿拉伯语</option>
+                    <option value="az">阿塞拜疆语</option>
+                    <option value="be">比利时语</option>
+                    <option value="bg">保加利亚语</option>
+                    <option value="ca">加泰隆语</option>
+                    <option value="cs">捷克语</option>
+                    <option value="cy">威尔士语</option>
+                    <option value="da">丹麦语</option>
+                    <option value="dv">第维埃语</option>
+                    <option value="el">希腊语</option>
+                    <option value="eo">世界语</option>
+                    <option value="es">西班牙语</option>
+                    <option value="et">爱沙尼亚语</option>
+                    <option value="eu">巴士克语</option>
+                    <option value="fa">法斯语</option>
+                    <option value="fi">芬兰语</option>
+                    <option value="fo">法罗语</option>
+                    <option value="gl">加里西亚语</option>
+                    <option value="gu">古吉拉特语</option>
+                    <option value="he">希伯来语</option>
+                    <option value="hi">印地语</option>
+                    <option value="hr">克罗地亚语</option>
+                    <option value="hu">匈牙利语</option>
+                    <option value="hy">亚美尼亚语</option>
+                    <option value="id">印度尼西亚语</option>
+                    <option value="is">冰岛语</option>
+                    <option value="it">意大利语</option>
+                    <option value="ka">格鲁吉亚语</option>
+                    <option value="kk">哈萨克语</option>
+                    <option value="kn">卡纳拉语</option>
+                    <option value="kok">孔卡尼语</option>
+                    <option value="ky">吉尔吉斯语</option>
+                    <option value="lt">立陶宛语</option>
+                    <option value="lv">拉脱维亚语</option>
+                    <option value="mi">毛利语</option>
+                    <option value="mk">马其顿语</option>
+                    <option value="mn">蒙古语</option>
+                    <option value="mr">马拉地语</option>
+                    <option value="ms">马来语</option>
+                    <option value="mt">马耳他语</option>
+                    <option value="nb">挪威语(伯克梅尔)</option>
+                    <option value="nl">荷兰语</option>
+                    <option value="ns">北梭托语</option>
+                    <option value="pa">旁遮普语</option>
+                    <option value="pl">波兰语</option>
+                    <option value="pt">葡萄牙语</option>
+                    <option value="qu">克丘亚语</option>
+                    <option value="ro">罗马尼亚语</option>
+                    <option value="sa">梵文</option>
+                    <option value="se">北萨摩斯语</option>
+                    <option value="sk">斯洛伐克语</option>
+                    <option value="sl">斯洛文尼亚语</option>
+                    <option value="sq">阿尔巴尼亚语</option>
+                    <option value="sv">瑞典语</option>
+                    <option value="sw">斯瓦希里语</option>
+                    <option value="syr">叙利亚语</option>
+                    <option value="ta">泰米尔语</option>
+                    <option value="te">泰卢固语</option>
+                    <option value="tl">塔加路语</option>
+                    <option value="tn">茨瓦纳语</option>
+                    <option value="tr">土耳其语</option>
+                    <option value="ts">宗加语</option>
+                    <option value="tt">鞑靼语</option>
+                    <option value="uk">乌克兰语</option>
+                    <option value="ur">乌都语</option>
+                    <option value="uz">乌兹别克语</option>
+                    <option value="vi">越南语</option>
+                    <option value="xh">班图语</option>
+                    <option value="zu">祖鲁语</option>
+                </select></st-div>
+            <st-div><select>
+                <option value="YouDao">有道翻译</option>
+                <option value="BaiDu">百度翻译</option>
+                <option value="Bing">必应翻译</option>
+                <option value="Google">谷歌翻译</option>
+                <option value="GoogleCN">谷歌翻译（国内）</option>
+            </select>
+                <st-div class="__action-list__">
+                    <st-div class="__button__ __btn-translate__">翻译
+                        <st-span class="st-icon-down-dir"></st-span>
+                    </st-div>
+                    <st-div class="__expand__">
+                        <st-div class="__button__">朗读</st-div>
+                        <st-div class="__button__">复制</st-div>
+                    </st-div>
+                </st-div>
+            </st-div>
+        </st-div>
+        <st-div class="__translate-result__" style="display: none;">正在查询，请稍候……</st-div>
+        <st-div class="__translate-result__">
+            <st-div style="display: none;">
+                <st-span></st-span>
+                <st-span class="__retry__">重试</st-span>
+            </st-div>
+            <st-div>
+                <st-div class="__phonetic__">
+                    <st-span style="display: none;"></st-span>
+                    <st-span class="__copy-and-read__">
+                        <st-span>朗读</st-span>
+                        <st-span style="display: none;">复制</st-span>
+                    </st-span>
+                </st-div>
+                <st-div style="display: none;">
+                    <st-ul></st-ul>
+                    <st-div class="__copy-and-read__">
+                        <st-span class="__copy-and-read__">复制</st-span>
+                    </st-div>
+                </st-div>
+                <st-div style="display: none;">
+                    <st-div class="__copy-and-read__">
+                        <st-span class="__copy-and-read__">朗读</st-span>
+                        <st-span class="__copy-and-read__">复制</st-span>
+                    </st-div>
+                </st-div>
+            </st-div>
+        </st-div>
+        <st-footer>
+            <st-span style="display: none;">via <a target="_blank" href=""></a></st-span>
+        </st-footer>
+    </st-div>
+    <st-div class="__st-btn__"
+            style="display: none; position: fixed; z-index: 99999; left: 0px; top: 0px; transform: translateX(1164px) translateY(182px);">
+        译
+    </st-div>
+</st-div>
+</body>
+<div></div>
+</html>
